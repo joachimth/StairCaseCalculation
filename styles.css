@@ -55,11 +55,24 @@ h2 {
     padding-bottom: 10px;
 }
 
+
+
+
+
 /* For the SVG */
 #staircaseDiagram, #singleStepDiagram {
     width: 100%;
-    max-width: 400px; /* Sets a maximum width */
-    margin: 0 auto; /* Centers the SVG in the middle */
+    max-width: 400px;
+    margin: 0 auto;
     display: block;
     padding: 20px 0;
+    text-align: center; // Ensure the SVGs are centered
 }
+
+
+
+
+
+
+
+

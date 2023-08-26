@@ -25,28 +25,46 @@ function updateStaircase() {
     drawSingleStep(optimalStepHeight, optimalStepDepth);
 }
 
-function drawStaircase(totalHeight, totalDepth, stepHeight, stepDepth) {
-    d3.select("#staircaseDiagram").html("");
+function drawStaircase(steps, stepHeight, stepDepth) {
+    // Select the SVG container and clear any previous drawing
+    let svgContainer = d3.select("#staircaseDiagram");
+    svgContainer.selectAll("*").remove();
 
-    const svgWidth = totalDepth * 10;
-    const svgHeight = totalHeight * 10;
+    // Dimensions
+    let width = 400;
+    let height = steps * stepHeight + 50; // Added +50 for some margin
 
-    const svg = d3.select("#staircaseDiagram")
-                  .append("svg")
-                  .attr("width", svgWidth)
-                  .attr("height", svgHeight);
+    svgContainer.attr("width", width).attr("height", height);
 
-    for (let i = 0; i < totalHeight / stepHeight; i++) {
-        const yPosition = i * stepHeight * 10;
-
-        svg.append("rect")
-           .attr("x", 0)
-           .attr("y", svgHeight - yPosition - stepHeight * 10)
-           .attr("width", stepDepth * 10)
-           .attr("height", stepHeight * 10)
-           .attr("fill", i % 2 === 0 ? "#ddd" : "#ccc");
+    // Create steps
+    for (let i = 0; i < steps; i++) {
+        svgContainer.append("rect")
+            .attr("x", 0)
+            .attr("y", i * stepHeight) // This should place steps above each other
+            .attr("width", stepDepth)
+            .attr("height", stepHeight)
+            .style("fill", "#888")
+            .style("stroke", "#333");
     }
+
+    // Draw ground and top floor levels
+    svgContainer.append("line")
+        .attr("x1", 0)
+        .attr("y1", 0)
+        .attr("x2", width)
+        .attr("y2", 0)
+        .style("stroke", "#333")
+        .style("stroke-width", 3);
+
+    svgContainer.append("line")
+        .attr("x1", 0)
+        .attr("y1", height - 50)
+        .attr("x2", width)
+        .attr("y2", height - 50)
+        .style("stroke", "#333")
+        .style("stroke-width", 3);
 }
+
 
 function drawSingleStep(stepHeight, stepDepth) {
     d3.select("#singleStepDiagram").html("");
