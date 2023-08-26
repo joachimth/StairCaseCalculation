@@ -3,33 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trappe Beregner</title>
+    <title>Trappeberegner</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Trappe Beregner</h1>
 
-    <form id="inputForm">
-        <label for="totalHeight">Total højdeforskel (cm):</label>
-        <input type="number" id="totalHeight" required>
-        
-        <label for="totalLength">Maksimal trappe længde (cm):</label>
-        <input type="number" id="totalLength" required>
-        
-        <input type="button" value="Beregn" onclick="calculateStairs()">
-    </form>
-
-    <p id="responseText"></p>
-    <div id="staircaseSVG">
-        <svg id="sideView" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="250" height="250">
-            <!-- Side view SVG content will be populated here by app.js -->
-        </svg>
-        <svg id="perspectiveView" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="250" height="250">
-            <!-- Perspective view SVG content will be populated here by app.js -->
-        </svg>
+<div class="container">
+    <h1>Trappeberegner</h1>
+    
+    <!-- Input for total højdeforskel -->
+    <div class="input-section">
+        <label for="totalHeightRange">Total højdeforskel (cm):</label>
+        <input type="range" id="totalHeightRange" min="50" max="300" step="1" value="200" oninput="updateTextInput('totalHeight', this.value);">
+        <input type="number" id="totalHeight" value="200" oninput="updateSlider('totalHeightRange', this.value);" min="50" max="300">
     </div>
 
-    <!-- Husk at inkludere app.js i bunden af din HTML for at sikre, at alt indhold er indlæst først. -->
-    <script src="app.js"></script>
+    <!-- Input for trappe længde -->
+    <div class="input-section">
+        <label for="maxLengthRange">Maksimal trappe længde (cm):</label>
+        <input type="range" id="maxLengthRange" min="100" max="600" step="1" value="300" oninput="updateTextInput('maxLength', this.value);">
+        <input type="number" id="maxLength" value="300" oninput="updateSlider('maxLengthRange', this.value);" min="100" max="600">
+    </div>
+
+    <button onclick="calculateStairs()">Beregn</button>
+
+    <!-- Output Section -->
+    <div class="output-section">
+        <h2>Resultater</h2>
+        <div id="results"></div>
+        <div id="staircaseDiagram"></div>
+    </div>
+</div>
+
+<script src="app.js"></script>
 </body>
 </html>

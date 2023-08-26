@@ -1,55 +1,62 @@
-const MIN_STEP_HEIGHT = 15;
-const MAX_STEP_HEIGHT = 20;
-const MIN_STEP_DEPTH = 22;
-const MAX_STEP_DEPTH = 25;
-
-function validateInput(totalHeight, totalLength) {
-    if (totalHeight <= 0 || totalLength <= 0) {
-        return "Indtast gyldige positive værdier for både højde og længde.";
-    }
-    return null;
+function updateTextInput(textInputId, val) {
+    document.getElementById(textInputId).value = val;
 }
 
-function guideForStandards(totalHeight, totalLength) {
-    const optimalStepHeight = totalHeight / Math.round(totalHeight / MIN_STEP_HEIGHT);
-    const optimalStepDepth = totalLength / Math.round(totalLength / MIN_STEP_DEPTH);
-
-    if (optimalStepHeight > MAX_STEP_HEIGHT || optimalStepDepth > MAX_STEP_DEPTH) {
-        return "Dine mål overstiger de standardstørrelser, der anbefales for trapper. Vurder at justere dine mål.";
-    }
-
-    return `Anbefalet trinhøjde: ${optimalStepHeight.toFixed(2)} cm og trindybde: ${optimalStepDepth.toFixed(2)} cm.`;
-}
-
-function generateStaircaseSVG(totalHeight, totalLength) {
-    const stepHeight = totalHeight / Math.round(totalHeight / MIN_STEP_HEIGHT);
-    const stepDepth = totalLength / Math.round(totalLength / MIN_STEP_DEPTH);
-    const totalSteps = Math.round(totalHeight / stepHeight);
-
-    let svgContent = `<svg width="${totalSteps * stepDepth}" height="${totalHeight}" xmlns="http://www.w3.org/2000/svg">`;
-
-    for (let i = 0; i < totalSteps; i++) {
-        svgContent += `<rect x="${i * stepDepth}" y="${(totalSteps - i - 1) * stepHeight}" width="${stepDepth}" height="${stepHeight}" fill="gray"/>`;
-    }
-
-    svgContent += "</svg>";
-    return svgContent;
+function updateSlider(sliderId, val) {
+    document.getElementById(sliderId).value = val;
 }
 
 function calculateStairs() {
-    const totalHeight = parseFloat(document.getElementById('totalHeight').value);
-    const totalLength = parseFloat(document.getElementById('totalLength').value);
+    const totalHeight = parseFloat(document.getElementById("totalHeight").value);
+    const maxLength = parseFloat(document.getElementById("maxLength").value);
 
-    const validationError = validateInput(totalHeight, totalLength);
-    if (validationError) {
-        document.getElementById('responseText').textContent = validationError;
-        document.getElementById('staircaseSVG').innerHTML = "";
+    // Simple validations
+    if (isNaN(totalHeight) || isNaN(maxLength)) {
+        alert("Indtast venligst gyldige værdier.");
         return;
     }
 
-    const guidance = guideForStandards(totalHeight, totalLength);
-    document.getElementById('responseText').textContent = guidance;
+    // Calculation logic
+    let idealRiser = (totalHeight / maxLength) * 2;
+    let numberOfRisers = Math.round(totalHeight / idealRiser);
+    let treadDepth = maxLength / numberOfRisers;
 
-    const svgContent = generateStaircaseSVG(totalHeight, totalLength);
-    document.getElementById('staircaseSVG').innerHTML = svgContent;
+    while (treadDepth > 24) { 
+        idealRiser += 0.5;
+        numberOfRisers = Math.round(totalHeight / idealRiser);
+        treadDepth = maxLength / numberOfRisers;
+    }
+
+    const resultsDiv = document.getElementById("results");
+    resultsDiv.innerHTML = `
+        Antal trin: ${numberOfRisers} <br>
+        Højde pr. trin: ${idealRiser.toFixed(2)} cm <br>
+        Dybde pr. trin: ${treadDepth.toFixed(2)} cm
+    `;
+
+    // SVG visualization
+    drawStaircase(numberOfRisers, idealRiser, treadDepth);
+}
+
+function drawStaircase(risers, riserHeight, treadDepth) {
+    const width = treadDepth * risers;
+    const height = riserHeight * risers;
+
+    let stairsPath = "";
+    let x = 0;
+    let y = height;
+
+    for (let i = 0; i < risers; i++) {
+        stairsPath += `L ${x} ${y - riserHeight} L ${x + treadDepth} ${y - riserHeight}`;
+        x += treadDepth;
+        y -= riserHeight;
+    }
+
+    const svg = `
+        <svg width="${width + 50}" height="${height + 50}" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 ${height} ${stairsPath}" fill="none" stroke="black" stroke-width="2" />
+        </svg>
+    `;
+
+    document.getElementById("staircaseDiagram").innerHTML = svg;
 }

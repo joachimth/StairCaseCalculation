@@ -1,55 +1,83 @@
-/* styles.css */
-
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
     background-color: #f4f4f4;
-    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
     padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-    color: #444;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+.input-section, .output-section {
+    margin-bottom: 30px;
 }
 
-label, input {
-    width: 100%;
+.input-section label {
     display: block;
     margin-bottom: 10px;
 }
 
-input[type="button"] {
-    cursor: pointer;
+.input-section input[type="number"] {
+    width: 70px;
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.input-section input[type="range"] {
+    width: calc(100% - 100px);
+}
+
+button {
+    display: block;
+    padding: 10px 20px;
     background-color: #007BFF;
     color: #fff;
     border: none;
-    padding: 10px 15px;
     border-radius: 5px;
-    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-input[type="button"]:hover {
+button:hover {
     background-color: #0056b3;
 }
 
-#responseText {
-    font-weight: bold;
-    margin-top: 20px;
+.output-section h2 {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
 }
 
-svg {
-    border: 1px solid #ccc;
-    margin-top: 20px;
+#staircaseDiagram svg {
     display: block;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: 20px auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .container {
+        margin: 20px 10px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+    
+    .input-section input[type="number"], .input-section input[type="range"] {
+        width: 100%;
+    }
 }
