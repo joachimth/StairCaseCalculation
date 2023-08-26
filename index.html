@@ -6,44 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staircase Calculator</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="app.js" defer></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Staircase Calculator</h1>
+    <h1>Staircase Calculator</h1>
 
-        <div class="input-section">
-            <label for="elevation">Elevation (cm):</label>
-            <input type="range" min="100" max="400" value="200" step="10" id="elevation">
-            <output for="elevation" id="elevationValue">200</output>
+    <div class="input-section">
+        <label for="totalHeight">Total Height (in cm):</label>
+        <input type="range" min="100" max="500" value="250" id="totalHeight" oninput="updateStaircaseValue('heightValue', 'totalHeight')" />
+        <span id="heightValue">250</span> cm
 
-            <label for="depth">Depth (cm):</label>
-            <input type="range" min="100" max="600" value="300" step="10" id="depth">
-            <output for="depth" id="depthValue">300</output>
+        <label for="totalDepth">Total Depth (in cm):</label>
+        <input type="range" min="100" max="500" value="250" id="totalDepth" oninput="updateStaircaseValue('depthValue', 'totalDepth')" />
+        <span id="depthValue">250</span> cm
 
-            <button id="calculate">Calculate</button>
-        </div>
+        <button id="calculateBtn">Calculate</button>
+    </div>
 
-        <div id="result"></div>
+    <div class="results-section">
+        <p>Number of Steps: <span id="numSteps"></span></p>
+        <p>Optimal Step Height (in cm): <span id="stepHeight"></span></p>
+        <p>Optimal Step Depth (in cm): <span id="stepDepth"></span></p>
 
+        <h2>Staircase Diagram</h2>
         <div id="staircaseDiagram"></div>
+
+        <h2>Single Step Diagram</h2>
         <div id="singleStepDiagram"></div>
     </div>
+
+    <script src="app.js"></script>
     <script>
-        const elevationRange = document.getElementById('elevation');
-        const depthRange = document.getElementById('depth');
-        const elevationOutput = document.getElementById('elevationValue');
-        const depthOutput = document.getElementById('depthValue');
-
-        elevationOutput.textContent = elevationRange.value;
-        depthOutput.textContent = depthRange.value;
-
-        elevationRange.oninput = function() {
-            elevationOutput.textContent = this.value;
-        }
-        depthRange.oninput = function() {
-            depthOutput.textContent = this.value;
+        function updateStaircaseValue(displayElem, inputElem) {
+            document.getElementById(displayElem).innerText = document.getElementById(inputElem).value;
         }
     </script>
 </body>
