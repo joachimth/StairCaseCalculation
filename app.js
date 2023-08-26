@@ -29,9 +29,14 @@ document.addEventListener("DOMContentLoaded", function() {
         resultElement.textContent = `Risers: ${risers}, Total Riser Height: ${totalRiserHeight} cm, Total Tread Depth: ${totalTreadDepth} cm`;
         
         drawStaircase(risers, riserHeight, treadDepth);
+
+        drawSingleStep(optimalStepHeight, optimalStepDepth);
     });
 
     function drawStaircase(risers, riserHeight, treadDepth) {
+        // Rengør SVG før tegning
+    d3.select("#staircaseDiagram").html("");
+
         const width = treadDepth * (risers - 1);
         const height = riserHeight * risers;
         
@@ -72,3 +77,69 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("staircaseDiagram").innerHTML = svg;
     }
 });
+
+
+
+function drawSingleStep(stepHeight, stepDepth) {
+    // Rengør SVG før tegning
+    d3.select("#singleStepDiagram").html("");
+
+    const stepWidth = 300; // fast bredde for trin visualisering
+    const svgHeight = stepHeight * 10 + 50;
+    const svgDepth = stepDepth * 10 + 50;
+
+    const svg = d3.select("#singleStepDiagram")
+                  .append("svg")
+                  .attr("width", stepWidth)
+                  .attr("height", svgHeight + svgDepth);
+
+    // Tegner trin
+    svg.append("rect")
+       .attr("x", 50)
+       .attr("y", 50)
+       .attr("width", stepDepth * 10)
+       .attr("height", stepHeight * 10)
+       .attr("fill", "#ddd");
+
+    // Annoterer højde
+    svg.append("line")
+       .attr("x1", 30)
+       .attr("y1", 50)
+       .attr("x2", 30)
+       .attr("y2", 50 + stepHeight * 10)
+       .attr("stroke", "black")
+       .attr("stroke-width", 2)
+       .attr("marker-start", "url(#arrowhead)")
+       .attr("marker-end", "url(#arrowhead)");
+       
+    svg.append("text")
+       .attr("x", 10)
+       .attr("y", 50 + (stepHeight * 10 / 2))
+       .attr("text-anchor", "middle")
+       .attr("alignment-baseline", "middle")
+       .text(`${stepHeight} cm`);
+
+    // Annoterer dybde
+    svg.append("line")
+       .attr("x1", 50)
+       .attr("y1", svgHeight + 30)
+       .attr("x2", 50 + stepDepth * 10)
+       .attr("y2", svgHeight + 30)
+       .attr("stroke", "black")
+       .attr("stroke-width", 2)
+       .attr("marker-start", "url(#arrowhead)")
+       .attr("marker-end", "url(#arrowhead)");
+
+    svg.append("text")
+       .attr("x", 50 + (stepDepth * 10 / 2))
+       .attr("y", svgHeight + 40)
+       .attr("text-anchor", "middle")
+       .attr("alignment-baseline", "middle")
+       .text(`${stepDepth} cm`);
+}
+
+// Og husk at kalde denne funktion fra `updateStaircase` funktionen: drawSingleStep(optimalStepHeight, optimalStepDepth);
+
+
+
+
