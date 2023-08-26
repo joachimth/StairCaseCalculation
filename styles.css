@@ -73,3 +73,23 @@ button:hover {
         padding: 10px;
     }
 }
+
+/* Tilføj dette i bunden af din nuværende CSS */
+
+/* Slider tilpasninger for mindre skærme */
+@media only screen and (max-width: 600px) {
+    input[type="range"] {
+        width: 100%;
+        height: 50px; /* Gør skyderen højere for at øge berøringsområdet */
+        margin-bottom: 25px; /* Tilføj mere margin for bedre adskillelse */
+    }
+
+    /* Justerer output-værdierne for at sikre, at de ikke overlap */
+    output {
+        display: block;
+        margin: 10px 0;
+    }
+}
+
+
+
