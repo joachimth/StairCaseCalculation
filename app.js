@@ -49,10 +49,15 @@ function drawStaircase(risers, riserHeight, treadDepth) {
         svgHeight = height * 0.5 + 50;
     }
 
+    const startLine = `<line x1="0" y1="${height}" x2="${width}" y2="${height}" stroke="red" stroke-width="3" stroke-dasharray="5,5"/>`;
+    const endLine = `<line x1="0" y1="0" x2="${width}" y2="0" stroke="red" stroke-width="3" stroke-dasharray="5,5"/>`;
+
     const svg = `
         <svg width="${svgWidth}" height="${svgHeight}" viewBox="${viewBoxAttr}" xmlns="http://www.w3.org/2000/svg">
             ${stairsFill}
             <path d="M0 ${height} ${stairsPath}" fill="none" stroke="black" stroke-width="2" />
+            ${startLine}
+            ${endLine}
         </svg>
     `;
 
