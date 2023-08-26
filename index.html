@@ -4,26 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trappe Beregner</title>
-    <style>
-        /* Tilføj styling her efter behov, f.eks.: */
-        form {
-            margin: 20px;
-        }
-
-        label, input {
-            margin-bottom: 10px;
-        }
-
-        #responseText {
-            font-weight: bold;
-            margin-top: 20px;
-        }
-
-        svg {
-            border: 1px solid #ccc;
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Trappe Beregner</h1>
@@ -39,7 +20,14 @@
     </form>
 
     <p id="responseText"></p>
-    <div id="staircaseSVG"></div>
+    <div id="staircaseSVG">
+        <svg id="sideView" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="250" height="250">
+            <!-- Side view SVG content will be populated here by app.js -->
+        </svg>
+        <svg id="perspectiveView" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="250" height="250">
+            <!-- Perspective view SVG content will be populated here by app.js -->
+        </svg>
+    </div>
 
     <!-- Husk at inkludere app.js i bunden af din HTML for at sikre, at alt indhold er indlæst først. -->
     <script src="app.js"></script>
