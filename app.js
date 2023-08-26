@@ -1,59 +1,57 @@
-function updateTextInput(textInputId, val) {
-    document.getElementById(textInputId).value = val;
-}
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("calculate").addEventListener("click", function() {
+        const totalHeight = parseFloat(document.getElementById("totalHeight").value);
+        const totalLength = parseFloat(document.getElementById("totalLength").value);
 
-function updateSlider(sliderId, val) {
-    document.getElementById(sliderId).value = val;
-}
+        if (isNaN(totalHeight) || isNaN(totalLength)) {
+            alert("Indtast gyldige værdier!");
+            return;
+        }
 
-function calculateStairs() {
-    const totalHeight = parseFloat(document.getElementById("totalHeight").value);
-    const maxLength = parseFloat(document.getElementById("maxLength").value);
+        const optimalRiserHeight = 18;  // standard riser height in cm
+        const optimalTreadDepth = 29;   // standard tread depth in cm
 
-    // Simple validations
-    if (isNaN(totalHeight) || isNaN(maxLength)) {
-        alert("Indtast venligst gyldige værdier.");
-        return;
-    }
+        const risers = Math.ceil(totalHeight / optimalRiserHeight);
+        const actualRiserHeight = totalHeight / risers;
+        const actualTreadDepth = totalLength / risers;
 
-    // Calculation logic
-    let idealRiser = (totalHeight / maxLength) * 2;
-    let numberOfRisers = Math.round(totalHeight / idealRiser);
-    let treadDepth = maxLength / numberOfRisers;
+        document.getElementById("risers").innerText = risers;
+        document.getElementById("actualRiserHeight").innerText = actualRiserHeight.toFixed(2);
+        document.getElementById("actualTreadDepth").innerText = actualTreadDepth.toFixed(2);
 
-    while (treadDepth > 24) { 
-        idealRiser += 0.5;
-        numberOfRisers = Math.round(totalHeight / idealRiser);
-        treadDepth = maxLength / numberOfRisers;
-    }
-
-    const resultsDiv = document.getElementById("results");
-    resultsDiv.innerHTML = `
-        Antal trin: ${numberOfRisers} <br>
-        Højde pr. trin: ${idealRiser.toFixed(2)} cm <br>
-        Dybde pr. trin: ${treadDepth.toFixed(2)} cm
-    `;
-
-    // SVG visualization
-    drawStaircase(numberOfRisers, idealRiser, treadDepth);
-}
+        drawStaircase(risers, actualRiserHeight, actualTreadDepth);
+    });
+});
 
 function drawStaircase(risers, riserHeight, treadDepth) {
     const width = treadDepth * risers;
     const height = riserHeight * risers;
 
     let stairsPath = "";
+    let stairsFill = "";
     let x = 0;
     let y = height;
 
     for (let i = 0; i < risers; i++) {
         stairsPath += `L ${x} ${y - riserHeight} L ${x + treadDepth} ${y - riserHeight}`;
+        stairsFill += `<polygon points="${x},${y} ${x + treadDepth},${y} ${x + treadDepth},${y - riserHeight} ${x},${y - riserHeight}" fill="rgba(200, 200, 200, 0.5)" />`;
         x += treadDepth;
         y -= riserHeight;
     }
 
+    let viewBoxAttr = `0 0 ${width} ${height}`;
+    let svgWidth = width + 50;
+    let svgHeight = height + 50;
+
+    if (window.innerWidth <= 600) {  // If on a mobile device
+        viewBoxAttr = `${width * 0.25} ${height * 0.25} ${width * 0.5} ${height * 0.5}`;
+        svgWidth = width * 0.5 + 50;
+        svgHeight = height * 0.5 + 50;
+    }
+
     const svg = `
-        <svg width="${width + 50}" height="${height + 50}" xmlns="http://www.w3.org/2000/svg">
+        <svg width="${svgWidth}" height="${svgHeight}" viewBox="${viewBoxAttr}" xmlns="http://www.w3.org/2000/svg">
+            ${stairsFill}
             <path d="M0 ${height} ${stairsPath}" fill="none" stroke="black" stroke-width="2" />
         </svg>
     `;
