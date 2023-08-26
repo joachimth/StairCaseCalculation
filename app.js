@@ -19,15 +19,11 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("actualRiserHeight").innerText = actualRiserHeight.toFixed(2);
         document.getElementById("actualTreadDepth").innerText = actualTreadDepth.toFixed(2);
 
-        drawStaircase(risers, actualRiserHeight, actualTreadDepth);
-    });
-});
-
 function drawStaircase(risers, riserHeight, treadDepth) {
     const width = treadDepth * risers;
     const height = riserHeight * risers;
 
-    let stairsPath = "";
+    let stairsPath = "M0 " + height + " ";
     let stairsFill = "";
     let x = 0;
     let y = height;
@@ -55,7 +51,7 @@ function drawStaircase(risers, riserHeight, treadDepth) {
     const svg = `
         <svg width="${svgWidth}" height="${svgHeight}" viewBox="${viewBoxAttr}" xmlns="http://www.w3.org/2000/svg">
             ${stairsFill}
-            <path d="M0 ${height} ${stairsPath}" fill="none" stroke="black" stroke-width="2" />
+            <path d="${stairsPath}" fill="none" stroke="black" stroke-width="2" />
             ${startLine}
             ${endLine}
         </svg>
@@ -63,3 +59,5 @@ function drawStaircase(risers, riserHeight, treadDepth) {
 
     document.getElementById("staircaseDiagram").innerHTML = svg;
 }
+
+
