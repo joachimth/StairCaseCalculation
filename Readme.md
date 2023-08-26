@@ -4,7 +4,7 @@ Velkommen til StairCaseCalc! Dette er en trappeberegner, som gør det nemt at fi
 
 ## Live Demo
 
-Du kan se og prøve appen live [her](https://joachimth.github.io/StairCaseCalc/).
+Du kan se og prøve appen live [her](https://joachimth.github.io/StairCaseCalculation/).
 
 ## Funktioner
 
@@ -16,7 +16,7 @@ Du kan se og prøve appen live [her](https://joachimth.github.io/StairCaseCalc/)
 
 1. Klon dette repositorium:
 
-git clone https://github.com/joachimth/StairCaseCalc.git
+git clone https://github.com/joachimth/StairCaseCalculation.git
 
 2. Åbn `index.html` i din foretrukne webbrowser.
 
