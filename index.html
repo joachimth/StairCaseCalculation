@@ -1,40 +1,50 @@
 <!DOCTYPE html>
-<html lang="da">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trappeberegner</title>
+    <title>Staircase Calculator</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
 </head>
+
 <body>
+    <div class="container">
+        <h1>Staircase Calculator</h1>
 
-<div class="container">
-    <h1>Trappeberegner</h1>
-    
-    <!-- Input for total højdeforskel -->
-    <div class="input-section">
-        <label for="totalHeightRange">Total højdeforskel (cm):</label>
-        <input type="range" id="totalHeightRange" min="50" max="300" step="1" value="200" oninput="updateTextInput('totalHeight', this.value);">
-        <input type="number" id="totalHeight" value="200" oninput="updateSlider('totalHeightRange', this.value);" min="50" max="300">
-    </div>
+        <div class="input-section">
+            <label for="elevation">Elevation (cm):</label>
+            <input type="range" min="100" max="400" value="200" step="10" id="elevation">
+            <output for="elevation" id="elevationValue">200</output>
 
-    <!-- Input for trappe længde -->
-    <div class="input-section">
-        <label for="maxLengthRange">Maksimal trappe længde (cm):</label>
-        <input type="range" id="maxLengthRange" min="100" max="600" step="1" value="300" oninput="updateTextInput('maxLength', this.value);">
-        <input type="number" id="maxLength" value="300" oninput="updateSlider('maxLengthRange', this.value);" min="100" max="600">
-    </div>
+            <label for="depth">Depth (cm):</label>
+            <input type="range" min="100" max="600" value="300" step="10" id="depth">
+            <output for="depth" id="depthValue">300</output>
 
-    <button onclick="calculateStairs()">Beregn</button>
+            <button id="calculate">Calculate</button>
+        </div>
 
-    <!-- Output Section -->
-    <div class="output-section">
-        <h2>Resultater</h2>
-        <div id="results"></div>
+        <div id="result"></div>
+
         <div id="staircaseDiagram"></div>
     </div>
-</div>
+    <script>
+        const elevationRange = document.getElementById('elevation');
+        const depthRange = document.getElementById('depth');
+        const elevationOutput = document.getElementById('elevationValue');
+        const depthOutput = document.getElementById('depthValue');
 
-<script src="app.js"></script>
+        elevationOutput.textContent = elevationRange.value;
+        depthOutput.textContent = depthRange.value;
+
+        elevationRange.oninput = function() {
+            elevationOutput.textContent = this.value;
+        }
+        depthRange.oninput = function() {
+            depthOutput.textContent = this.value;
+        }
+    </script>
 </body>
+
 </html>

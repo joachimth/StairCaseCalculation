@@ -1,16 +1,17 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
+    padding: 20px;
+    background-color: #f5f5f5;
+    color: #333;
 }
 
 .container {
     max-width: 800px;
-    margin: 50px auto;
+    margin: 0 auto;
     padding: 20px;
     background-color: #fff;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
@@ -18,66 +19,57 @@ h1 {
     margin-bottom: 30px;
 }
 
-.input-section, .output-section {
-    margin-bottom: 30px;
+.input-section {
+    margin-bottom: 20px;
 }
 
-.input-section label {
+label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
-.input-section input[type="number"] {
-    width: 70px;
-    padding: 5px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+input[type="range"] {
+    width: 100%;
 }
 
-.input-section input[type="range"] {
-    width: calc(100% - 100px);
+output {
+    display: inline-block;
+    margin-left: 10px;
+    font-weight: bold;
 }
 
 button {
     display: block;
+    margin-top: 20px;
     padding: 10px 20px;
     background-color: #007BFF;
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.2s ease-in-out;
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
-.output-section h2 {
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
-
-#staircaseDiagram svg {
-    display: block;
-    margin: 20px auto;
+#staircaseDiagram {
+    max-width: 100%;
+    overflow-x: auto;
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 20px;
+    background-color: #e9e9e9;
+    border-radius: 8px;
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-    .container {
-        margin: 20px 10px;
-    }
-
-    h1 {
-        font-size: 20px;
+@media only screen and (max-width: 600px) {
+    body {
+        padding: 10px;
     }
     
-    .input-section input[type="number"], .input-section input[type="range"] {
-        width: 100%;
+    .container {
+        padding: 10px;
     }
 }
