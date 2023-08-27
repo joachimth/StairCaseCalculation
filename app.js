@@ -13,7 +13,7 @@ function drawStaircase(steps, stepHeight, stepDepth) {
   // Create steps
   for (let i = 0; i < steps; i++) {
     svgContainer.append("rect")
-      .attr("x", 0)
+      .attr("x", i * stepDepth + Math.round(steps * stepDepth * 0.5 ))
       .attr("y", i * stepHeight)
       .attr("width", stepDepth)
       .attr("height", stepHeight)
@@ -27,7 +27,7 @@ function drawStaircase(steps, stepHeight, stepDepth) {
     .attr("y1", 0)
     .attr("x2", 300)
     .attr("y2", 0)
-    .attr("stroke", "black")
+    .attr("stroke", "red")
     .attr("stroke-width", 2);
 
   // Drawing the top level
@@ -36,7 +36,7 @@ function drawStaircase(steps, stepHeight, stepDepth) {
     .attr("y1", steps * stepHeight)
     .attr("x2", 300)
     .attr("y2", steps * stepHeight)
-    .attr("stroke", "black")
+    .attr("stroke", "red")
     .attr("stroke-width", 2);
 }
 
