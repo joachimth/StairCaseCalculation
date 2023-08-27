@@ -1,7 +1,7 @@
 # Staircase Calculator
 
 > The Staircase Calculator is an intuitive and responsive web tool designed to calculate and visually represent the optimal measurements for constructing a staircase, ensuring safety and comfort.
-
+> My current fiddle https://jsfiddle.net/joachimth/p6z1205s/
 > Joachim Thirsbro
 
 ## Features
