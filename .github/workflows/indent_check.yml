@@ -1,9 +1,9 @@
-name: Indentation and Formatting Check
+name: Indentation and Formatting Check and Fix
 
 on: [push, pull_request]
 
 jobs:
-  check_formatting:
+  format:
     runs-on: ubuntu-latest
 
     steps:
@@ -13,10 +13,18 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14'
+        node-version: '16'
 
     - name: Install Prettier
       run: npm install prettier
 
-    - name: Check Formatting
-      run: npx prettier --check . --ignore-path .gitignore
+    - name: Auto-fix Formatting
+      run: npx prettier --write .
+
+    - name: Commit changes
+      run: |
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add -A
+        git commit -m "Automatically fix code formatting" || echo "No changes to commit"
+        git push
