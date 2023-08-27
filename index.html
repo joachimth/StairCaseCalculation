@@ -1,38 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staircase Calculator</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://d3js.org/d3.v5.min.js"></script>
-</head>
-<body>
+  </head>
+
+  <body>
     <div class="container">
-        <h1>Staircase Calculator</h1>
-        
-        <div class="input-container">
-            <label for="heightDifference">Height Difference (cm):</label>
-            <input type="range" min="100" max="400" id="heightDifference" step="1" value="250">
-            <span id="heightDifferenceValue">250</span>
-        </div>
+      <h1>Staircase Calculator</h1>
 
-        <div class="input-container">
-            <label for="maxDepth">Max Step Depth (cm):</label>
-            <input type="range" min="20" max="50" id="maxDepth" step="1" value="35">
-            <span id="maxDepthValue">35</span>
-        </div>
+      <div class="input-container">
+        <label for="heightDifference">Height Difference (cm):</label>
+        <input type="range" min="50" max="400" id="heightDifference" step="1" value="80">
+        <span id="heightDifferenceValue">80</span>
+      </div>
 
-        <div id="results">
-            <p id="stepCount">Steps:</p>
-            <p id="calculatedStepDepth">Step Depth:</p>
-            <p id="calculatedStepHeight">Step Height:</p>
-        </div>
+      <div class="input-container">
+        <label for="maxDepth">Max Step Depth (cm):</label>
+        <input type="range" min="20" max="50" id="maxDepth" step="1" value="35">
+        <span id="maxDepthValue">35</span>
+      </div>
 
-        <div id="drawingArea"></div>
-        <button id="showSingleStep">Show Single Step</button>
+      <div id="results">
+        <p id="stepCount">Steps:</p>
+        <p id="calculatedStepDepth">Step Depth:</p>
+        <p id="calculatedStepHeight">Step Height:</p>
+      </div>
 
-        <script src="app.js"></script>
+      <div id="drawingAreaStaircase"></div>
+
+      <div id="drawingAreaSingleStep"></div>
+
+      <script src="app.js"></script>
     </div>
-</body>
+  </body>
+
 </html>
