@@ -13,7 +13,7 @@ function drawStaircase(steps, stepHeight, stepDepth) {
   // Create steps
   for (let i = 0; i < steps; i++) {
     svgContainer.append("rect")
-      .attr("x", i * stepDepth + Math.round(steps * stepDepth * 0.5 ))
+      .attr("x", i * stepDepth + Math.round(steps * stepDepth * 0.5))
       .attr("y", i * stepHeight)
       .attr("width", stepDepth)
       .attr("height", stepHeight)
@@ -44,20 +44,58 @@ function drawSingleStep(stepHeight, stepDepth) {
   // Clear previous drawings
   drawingAreaSingleStep.innerHTML = "";
 
+  const stepWidth = 300;
+  const svgOffsetx = 20;
+  const svgHeight = stepHeight * 10 + 50;
+  const svgDepth = stepDepth * 10 + 50;
+
   const svgContainer = d3.select("#drawingAreaSingleStep").append("svg")
     .attr("width", 300)
     .attr("height", 300);
 
   // Drawing the step
   svgContainer.append("rect")
-    .attr("x", 50)
-    .attr("y", 100)
-    .attr("width", stepDepth)
-    .attr("height", stepHeight)
+    .attr("x", svgOffsetx + 50)
+    .attr("y", svgOffsetx + 50)
+    .attr("width", svgOffsetx + stepDepth * 10)
+    .attr("height", svgOffsetx + stepHeight * 10)
     .style("fill", "#888")
     .style("stroke", "#333");
 
   // Add measurements and labels...
+  svgContainer.append("line")
+    .attr("x1", svgOffsetx + 30)
+    .attr("y1", svgOffsetx + 50)
+    .attr("x2", svgOffsetx + 30)
+    .attr("y2", svgOffsetx + 50 + stepHeight * 10)
+    .attr("stroke", "black")
+    .attr("stroke-width", 2)
+    .attr("marker-start", "url(#arrowhead)")
+    .attr("marker-end", "url(#arrowhead)");
+
+  svgContainer.append("text")
+    .attr("x", svgOffsetx + 10)
+    .attr("y", svgOffsetx + 50 + (stepHeight * 10 / 2))
+    .attr("text-anchor", "middle")
+    .attr("alignment-baseline", "right")
+    .text(`${stepHeight.toFixed(2)} cm`);
+
+  svgContainer.append("line")
+    .attr("x1", svgOffsetx + 50)
+    .attr("y1", svgOffsetx + svgHeight + 30)
+    .attr("x2", svgOffsetx + 50 + stepDepth * 10)
+    .attr("y2", svgOffsetx + svgHeight + 30)
+    .attr("stroke", "black")
+    .attr("stroke-width", 2)
+    .attr("marker-start", "url(#arrowhead)")
+    .attr("marker-end", "url(#arrowhead)");
+
+  svgContainer.append("text")
+    .attr("x", svgOffsetx + 50 + (stepDepth * 10 / 2))
+    .attr("y", svgOffsetx + svgHeight + 40)
+    .attr("text-anchor", "middle")
+    .attr("alignment-baseline", "middle")
+    .text(`${stepDepth.toFixed(2)} cm`);
 }
 
 // Event listeners for input changes
