@@ -9,28 +9,7 @@ function drawStaircase(steps, stepHeight, stepDepth) {
         .attr("width", 300)
         .attr("height", 300);
 
-    // Add shadow filter
-    let defs = svgContainer.append("defs");
-    let filter = defs.append("filter")
-        .attr("id", "shadow")
-        .attr("height", "130%");
-
-    filter.append("feOffset")
-        .attr("dx", "2")
-        .attr("dy", "2")
-        .attr("result", "offOut");
-
-    filter.append("feGaussianBlur")
-        .attr("in", "offOut")
-        .attr("stdDeviation", "2")
-        .attr("result", "blurOut");
-
-    filter.append("feBlend")
-        .attr("in", "SourceGraphic")
-        .attr("in2", "blurOut")
-        .attr("mode", "normal");
-
-    // Create steps with shadow effect
+    // Create steps
     for (let i = 0; i < steps; i++) {
         svgContainer.append("rect")
             .attr("x", 0)
@@ -38,8 +17,7 @@ function drawStaircase(steps, stepHeight, stepDepth) {
             .attr("width", stepDepth)
             .attr("height", stepHeight)
             .style("fill", "#888")
-            .style("stroke", "#333")
-            .style("filter", "url(#shadow)"); // Apply shadow here
+            .style("stroke", "#333");
     }
 
     // Drawing the base level
@@ -69,39 +47,16 @@ function drawSingleStep(stepHeight, stepDepth) {
         .attr("width", 300)
         .attr("height", 300);
 
-    // Add shadow filter (same as above)
-    let defs = svgContainer.append("defs");
-    let filter = defs.append("filter")
-        .attr("id", "shadow")
-        .attr("height", "130%");
-
-    filter.append("feOffset")
-        .attr("dx", "2")
-        .attr("dy", "2")
-        .attr("result", "offOut");
-
-    filter.append("feGaussianBlur")
-        .attr("in", "offOut")
-        .attr("stdDeviation", "2")
-        .attr("result", "blurOut");
-
-    filter.append("feBlend")
-        .attr("in", "SourceGraphic")
-        .attr("in2", "blurOut")
-        .attr("mode", "normal");
-
-    // Drawing the step with shadow effect
+    // Drawing the step
     svgContainer.append("rect")
         .attr("x", 50)
         .attr("y", 100)
         .attr("width", stepDepth)
         .attr("height", stepHeight)
         .style("fill", "#888")
-        .style("stroke", "#333")
-        .style("filter", "url(#shadow)");
+        .style("stroke", "#333");
 
     // Add measurements and labels...
-    // [Code for adding measurement lines, text, etc.]
 }
 
 // Event listeners for input changes
@@ -109,7 +64,29 @@ document.querySelector('#heightDifference').addEventListener('input', calculateA
 document.querySelector('#maxDepth').addEventListener('input', calculateAndDraw);
 
 function calculateAndDraw() {
-    // ... [Rest of the function as provided before]
+    let heightDifference = parseFloat(document.querySelector('#heightDifference').value);
+    let maxDepth = parseFloat(document.querySelector('#maxDepth').value);
+
+    if (!heightDifference || !maxDepth) {
+        return; // One of the inputs is not filled, so we don't calculate or draw anything.
+    }
+
+    let stepHeight = 18; // This is a standard step height, adjust as needed
+    let steps = Math.round(heightDifference / stepHeight);
+    let stepDepth = heightDifference / steps;
+
+    if (stepDepth > maxDepth) {
+        // Adjust based on maxDepth input.
+        stepDepth = maxDepth;
+        stepHeight = heightDifference / stepDepth;
+        steps = Math.round(heightDifference / stepHeight);
+    }
+
+    document.querySelector('#stepCount').innerText = `Steps: ${steps}`;
+    document.querySelector('#calculatedStepDepth').innerText = `Step Depth: ${stepDepth.toFixed(2)} cm`;
+    document.querySelector('#calculatedStepHeight').innerText = `Step Height: ${stepHeight.toFixed(2)} cm`;
+
+    drawStaircase(steps, stepHeight, stepDepth);
 }
 
 calculateAndDraw();  // Initial drawing
