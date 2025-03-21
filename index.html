@@ -1,42 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <head>
+<html lang="da">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staircase Calculator</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-  </head>
-
-  <body>
+    <title>Trappe Beregner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
     <div class="container">
-      <h1>Staircase Calculator</h1>
-
-      <div class="input-container">
-        <label for="heightDifference">Height Difference (cm):</label>
-        <input type="range" min="50" max="400" id="heightDifference" step="1" value="145">
-        <span id="heightDifferenceValue">145</span>
-      </div>
-
-      <div class="input-container">
-        <label for="maxDepth">Max Step Depth (cm):</label>
-        <input type="range" min="20" max="50" id="maxDepth" step="1" value="150">
-        <span id="maxDepthValue">150</span>
-      </div>
-
-      <div id="results">
-        <p id="stepCount">Steps:</p>
-        <p id="calculatedStepDepth">Step Depth:</p>
-        <p id="calculatedStepHeight">Step Height:</p>
-      </div>
-
-      <div id="drawingAreaStaircase"></div>
-
-      <div id="drawingAreaSingleStep"></div>
-
-      <script src="app.js"></script>
+        <h1>Trappe Beregner</h1>
+        <p>Beregn den optimale trappekonstruktion baseret på tilgængelig plads og ergonomiske hensyn.</p>
+        
+        <form id="stairForm">
+            <div class="input-group">
+                <label for="total-height">Total højde (cm):</label>
+                <input type="number" id="total-height" min="1" step="0.1" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="total-length">Total længde (cm):</label>
+                <input type="number" id="total-length" min="1" step="0.1" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="step-count">Antal trin:</label>
+                <input type="number" id="step-count" min="2" step="1" required>
+            </div>
+            
+            <button type="button" onclick="calculate()">Beregn</button>
+        </form>
+        
+        <div id="results" class="hidden">
+            <h2>Resultater</h2>
+            <div class="result-grid">
+                <div class="result-item">
+                    <h3>Trinhøjde</h3>
+                    <p id="step-height">-</p>
+                    <p class="note">Ideel højde: 15-19 cm</p>
+                </div>
+                <div class="result-item">
+                    <h3>Trindybde</h3>
+                    <p id="step-depth">-</p>
+                    <p class="note">Ideel dybde: 22-30 cm</p>
+                </div>
+                <div class="result-item">
+                    <h3>Stigningsforhold</h3>
+                    <p id="ratio">-</p>
+                    <p class="note">Ideelt forhold: 17/29</p>
+                </div>
+            </div>
+            
+            <div id="comfort-rating">
+                <h3>Komfort-vurdering</h3>
+                <div id="comfort-meter">
+                    <div id="comfort-indicator"></div>
+                </div>
+                <p id="comfort-text">-</p>
+            </div>
+            
+            <div id="diagram-container">
+                <h3>Trappevisualisering</h3>
+                <div id="stair-diagram"></div>
+            </div>
+        </div>
     </div>
-  </body>
-
+    
+    <script src="script.js"></script>
+</body>
 </html>
